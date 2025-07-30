@@ -1,0 +1,69 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<Nullable>disable</Nullable>
+		<Title>ISL.Providers.Captcha.GoogleReCaptcha</Title>
+		<Product>ISL.Providers.Captcha.GoogleReCaptcha</Product>
+		<PackageId>ISL.Providers.Captcha.GoogleReCaptcha</PackageId>
+		<Authors>North East London ICB</Authors>
+		<Company>North East London ICB</Company>
+		<Description>
+			ISL.Providers.Captcha.GoogleReCaptcha provides a provider wrapper implementation of the Google ReCaptcha service.
+		</Description>
+		<Copyright>North East London ICB - 2025 (c)</Copyright>
+		<PackageIcon>captcha.png</PackageIcon>
+		<PackageProjectUrl>https://github.com/NHSISL/ISL.Providers.Captcha</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/NHSISL/ISL.Providers.Captcha</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>NHSISL; Captcha; GoogleReCaptcha; Provider; .NET; The Standard; Standard;</PackageTags>
+		<PackageReleaseNotes>
+			Initial release of ISL.Providers.Captcha.GoogleReCaptcha
+		</PackageReleaseNotes>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<Version>0.0.0.1</Version>
+		<AssemblyVersion>0.0.0.1</AssemblyVersion>
+		<FileVersion>0.0.0.1</FileVersion>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageLicenseFile>License.txt</PackageLicenseFile>
+		<IsPackable>true</IsPackable>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<NoWarn>CS1998</NoWarn>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\README.md">
+			<Pack>true</Pack>
+			<PackagePath></PackagePath>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Include="..\License.txt">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+		<None Include="..\Resources\Images\captcha.png">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<InternalsVisibleTo Include="ISL.Providers.Captcha.GoogleReCaptcha.Tests.Unit" />
+		<InternalsVisibleTo Include="ISL.Providers.Captcha.GoogleReCaptcha.Tests.Acceptance" />
+		<InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="FluentAssertions" Version="7.2.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.7" />
+		<PackageReference Include="NHSISL.CsvHelperClient" Version="1.1.0" />
+		<PackageReference Include="RESTFulSense" Version="3.2.0" />
+		<PackageReference Include="Xeption" Version="2.8.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\ISL.Providers.Captcha.Abstractions\ISL.Providers.Captcha.Abstractions.csproj" />
+	</ItemGroup>
+
+</Project>
