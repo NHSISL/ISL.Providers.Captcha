@@ -41,7 +41,7 @@ namespace ISL.Providers.Captcha.Abstractions
                 var uncatagorizedCaptchaProviderException =
                     new UncatagorizedCaptchaProviderException(
                         message: "Captcha provider not properly implemented. Uncatagorized errors found, " +
-                            "contact the Captcha provider owner for support.",
+                            "contact the captcha provider owner for support.",
                         innerException: ex,
                         data: ex.Data);
 
