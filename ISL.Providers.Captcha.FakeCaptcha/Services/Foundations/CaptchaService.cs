@@ -14,9 +14,9 @@ namespace ISL.Providers.Captcha.FakeCaptcha.Services.Foundations
                 ValidateCaptchaValidationArguments(captchaToken);
 
                 if (captchaToken == "valid-captcha")
-                {
+        {
                     return true;
-                }
+        }
 
                 return false;
             });
