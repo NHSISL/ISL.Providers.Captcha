@@ -11,7 +11,7 @@ namespace ISL.Providers.Captcha.FakeCaptcha.Tests.Unit.Services.Foundations.Capt
     public partial class CaptchaServiceTests
     {
         [Fact]
-        public async Task ShouldPatientLookupByDetailsAsync()
+        public async Task ShouldValidateCaptchaAsync()
         {
             // given
             string randomString = GetRandomString();
@@ -20,8 +20,8 @@ namespace ISL.Providers.Captcha.FakeCaptcha.Tests.Unit.Services.Foundations.Capt
             bool expectedResponse = true;
 
             // when
-            bool actualResponse = await this.captchaService
-                .ValidateCaptchaAsync(inputCaptchaToken, inputUserIp);
+            bool actualResponse = this.captchaService
+                .ValidateCaptcha(inputCaptchaToken, inputUserIp);
 
             // then
             actualResponse.Should().Be(expectedResponse);
