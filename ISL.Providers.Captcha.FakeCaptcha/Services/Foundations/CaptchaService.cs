@@ -6,11 +6,19 @@ using System.Threading.Tasks;
 
 namespace ISL.Providers.Captcha.FakeCaptcha.Services.Foundations
 {
-    internal class CaptchaService : ICaptchaService
+    internal partial class CaptchaService : ICaptchaService
     {
-        public ValueTask<bool> ValidateCaptchaAsync(string captchaToken, string userIp = "")
-        {
-            throw new System.NotImplementedException();
-        }
+        public ValueTask<bool> ValidateCaptchaAsync(string captchaToken, string userIp = "") =>
+            TryCatch(async () =>
+            {
+                ValidateCaptchaValidationArguments(captchaToken);
+
+                if (captchaToken == "valid-captcha")
+                {
+                    return true;
+                }
+
+                return false;
+            });
     }
 }
