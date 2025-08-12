@@ -20,8 +20,8 @@ namespace ISL.Providers.Captcha.FakeCaptcha.Tests.Unit.Services.Foundations.Capt
             bool expectedResponse = true;
 
             // when
-            bool actualResponse = this.captchaService
-                .ValidateCaptcha(inputCaptchaToken, inputUserIp);
+            bool actualResponse = await this.captchaService
+                .ValidateCaptchaAsync(inputCaptchaToken, inputUserIp);
 
             // then
             actualResponse.Should().Be(expectedResponse);

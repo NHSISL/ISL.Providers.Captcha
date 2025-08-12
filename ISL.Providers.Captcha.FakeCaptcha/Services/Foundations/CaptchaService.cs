@@ -2,18 +2,23 @@
 // Copyright (c) North East London ICB. All rights reserved.
 // ---------------------------------------------------------
 
+using System.Threading.Tasks;
+
 namespace ISL.Providers.Captcha.FakeCaptcha.Services.Foundations
 {
-    internal class CaptchaService : ICaptchaService
+    internal partial class CaptchaService : ICaptchaService
     {
-        public bool ValidateCaptcha(string captchaToken, string userIp = "")
-        {
-            if (captchaToken == "valid-captcha")
+        public ValueTask<bool> ValidateCaptchaAsync(string captchaToken, string userIp = "") =>
+            TryCatch(async () =>
             {
-                return true;
-            }
+                ValidateCaptchaValidationArguments(captchaToken);
 
-            return false;
-        }
+                if (captchaToken == "valid-captcha")
+                {
+                    return true;
+                }
+
+                return false;
+            });
     }
 }
