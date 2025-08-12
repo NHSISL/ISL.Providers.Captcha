@@ -13,8 +13,7 @@ namespace ISL.Providers.Captcha.FakeCaptcha.Services.Foundations
     {
         private delegate ValueTask<bool> ReturningBoolFunction();
 
-        private async ValueTask<bool> TryCatch(
-            ReturningBoolFunction returningBoolFunction)
+        private async ValueTask<bool> TryCatch(ReturningBoolFunction returningBoolFunction)
         {
             try
             {
