@@ -11,9 +11,7 @@ namespace ISL.Providers.Captcha.FakeCaptcha.Services.Foundations
     {
         virtual internal void ValidateCaptchaValidationArguments(string captchaToken)
         {
-            Validate(
-                (Rule: IsInvalid(captchaToken),
-                Parameter: nameof(captchaToken)));
+            Validate((Rule: IsInvalid(captchaToken), Parameter: nameof(captchaToken)));
         }
 
         private static dynamic IsInvalid(string text) => new
