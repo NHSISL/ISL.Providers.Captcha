@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ISL.Providers.Captcha.GoogleReCaptcha.Services.Foundations.Captcha
 {
-    internal class CaptchaService : ICaptchaService
+    internal partial class CaptchaService : ICaptchaService
     {
         private readonly IGoogleReCaptchaBroker googleReCaptchaBroker;
         private readonly GoogleReCaptchaConfigurations googleReCaptchaConfigurations;
@@ -20,9 +20,12 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Services.Foundations.Captcha
             this.googleReCaptchaConfigurations = googleReCaptchaConfigurations;
         }
 
-        public async ValueTask<bool> ValidateCaptchaAsync(string captchaToken, string userIp = "")
-        {
-            return await this.googleReCaptchaBroker.ValidateCaptchaAsync(captchaToken, userIp);
-        }
+        public ValueTask<bool> ValidateCaptchaAsync(string captchaToken, string userIp = "") =>
+            TryCatch(async () =>
+            {
+                ValidateCaptchaValidationArguments(captchaToken);
+
+                return await this.googleReCaptchaBroker.ValidateCaptchaAsync(captchaToken, userIp);
+            });
     }
 }
