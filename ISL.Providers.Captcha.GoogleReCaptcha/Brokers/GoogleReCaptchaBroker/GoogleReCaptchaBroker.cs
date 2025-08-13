@@ -26,7 +26,11 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Brokers.GoogleReCaptchaBroker
 
         public async ValueTask<bool> ValidateCaptchaAsync(string captchaToken, string userIp = "")
         {
-            string route = googleReCaptchaConfigurations.ApiUrl;
+            string route = "/api/siteverify";
+
+            string path = googleReCaptchaConfigurations.ApiUrl.EndsWith("/")
+                ? route
+                : $"/{route}";
 
             var request = new GoogleReCaptchaRequest
             {
