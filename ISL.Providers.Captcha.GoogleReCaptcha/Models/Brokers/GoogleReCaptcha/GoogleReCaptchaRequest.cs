@@ -2,11 +2,14 @@
 // Copyright (c) North East London ICB. All rights reserved.
 // ---------------------------------------------------------
 
-namespace ISL.Providers.Captcha.GoogleReCaptcha.Models.Brokers
+using System;
+
+namespace ISL.Providers.Captcha.GoogleReCaptcha.Models.Brokers.GoogleReCaptcha
 {
-    public class GoogleReCaptchaConfigurations
+    public class GoogleReCaptchaRequest
     {
-        public string ApiUrl { get; set; }
         public string ApiSecret { get; set; }
+        public string CaptchaToken { get; set; }
+        public string UserIp { get; set; } = String.Empty;
     }
 }
