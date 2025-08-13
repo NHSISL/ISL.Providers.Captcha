@@ -20,9 +20,9 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Services.Foundations.Captcha
             this.googleReCaptchaConfigurations = googleReCaptchaConfigurations;
         }
 
-        public ValueTask<bool> ValidateCaptchaAsync(string captchaToken, string userIp = "")
+        public async ValueTask<bool> ValidateCaptchaAsync(string captchaToken, string userIp = "")
         {
-            throw new System.NotImplementedException();
+            return await this.googleReCaptchaBroker.ValidateCaptchaAsync(captchaToken, userIp);
         }
     }
 }
