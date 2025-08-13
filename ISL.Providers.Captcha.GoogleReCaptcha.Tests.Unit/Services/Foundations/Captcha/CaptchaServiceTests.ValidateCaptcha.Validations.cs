@@ -44,8 +44,6 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Tests.Unit.Services.Foundations.
 
             // then
             actualException.Should().BeEquivalentTo(expectedCaptchaValidationException);
-
-
         }
     }
 }

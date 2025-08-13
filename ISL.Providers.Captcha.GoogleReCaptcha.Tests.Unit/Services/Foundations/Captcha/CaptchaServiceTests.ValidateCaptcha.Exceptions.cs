@@ -2,14 +2,13 @@
 // Copyright (c) North East London ICB. All rights reserved.
 // ---------------------------------------------------------
 
-using FluentAssertions;
-using ISL.Providers.Captcha.FakeCaptcha.Models.Foundations.Captcha.Exceptions;
-using ISL.Providers.Captcha.FakeCaptcha.Services.Foundations;
-using Moq;
 using System;
 using System.Threading.Tasks;
+using FluentAssertions;
+using ISL.Providers.Captcha.GoogleReCaptcha.Models.Services.Foundations.Captcha;
+using ISL.Providers.Captcha.GoogleReCaptcha.Models.Services.Foundations.Captcha.Exceptions;
 
-namespace ISL.Providers.Captcha.FakeCaptcha.Tests.Unit.Services.Foundations.Captcha
+namespace ISL.Providers.Captcha.GoogleReCaptcha.Tests.Unit.Services.Foundations.Captcha
 {
     public partial class CaptchaServiceTests
     {
@@ -21,7 +20,7 @@ namespace ISL.Providers.Captcha.FakeCaptcha.Tests.Unit.Services.Foundations.Capt
             string someString = GetRandomString();
 
             var failedServiceCaptchaException =
-                new FailedServiceCaptchaException(
+                new FailedCaptchaServiceException(
                     message: "Failed Captcha service error occurred, please contact support.",
                     innerException: serviceException,
                     data: serviceException.Data);
@@ -31,26 +30,19 @@ namespace ISL.Providers.Captcha.FakeCaptcha.Tests.Unit.Services.Foundations.Capt
                     message: "Captcha service error occurred, please contact support.",
                     innerException: failedServiceCaptchaException);
 
-            var captchaServiceMock = new Mock<CaptchaService>()
-            {
-                CallBase = true
-            };
-
-            captchaServiceMock.Setup(service =>
-                service.ValidateCaptchaValidationArguments(someString))
+            this.googleReCaptchaBroker.Setup(broker =>
+                broker.ValidateCaptchaAsync(someString, ""))
                     .Throws(serviceException);
 
             // when
-            ValueTask<bool> validateCaptchaTask =
-                captchaServiceMock.Object.ValidateCaptchaAsync(someString, someString);
+            ValueTask<bool> validateCaptchaTask = captchaService.ValidateCaptchaAsync(someString, "");
 
             CaptchaServiceException actualCaptchaServiceException =
                 await Assert.ThrowsAsync<CaptchaServiceException>(
                     testCode: validateCaptchaTask.AsTask);
 
             // then
-            actualCaptchaServiceException.Should().BeEquivalentTo(
-                expectedCaptchaServiceException);
+            actualCaptchaServiceException.Should().BeEquivalentTo(expectedCaptchaServiceException);
         }
     }
 }
