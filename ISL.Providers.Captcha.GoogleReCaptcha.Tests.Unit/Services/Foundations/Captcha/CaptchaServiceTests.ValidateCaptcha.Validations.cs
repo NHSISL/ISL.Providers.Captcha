@@ -2,13 +2,12 @@
 // Copyright (c) North East London ICB. All rights reserved.
 // ---------------------------------------------------------
 
-using FluentAssertions;
-using ISL.Providers.Captcha.FakeCaptcha.Models.Foundations.Captcha.Exceptions;
-using ISL.Providers.Captcha.FakeCaptcha.Services.Foundations;
-using Moq;
 using System.Threading.Tasks;
+using FluentAssertions;
+using ISL.Providers.Captcha.GoogleReCaptcha.Models.Services.Foundations.Captcha;
+using ISL.Providers.Captcha.GoogleReCaptcha.Models.Services.Foundations.Captcha.Exceptions;
 
-namespace ISL.Providers.Captcha.FakeCaptcha.Tests.Unit.Services.Foundations.Captcha
+namespace ISL.Providers.Captcha.GoogleReCaptcha.Tests.Unit.Services.Foundations.Captcha
 {
     public partial class CaptchaServiceTests
     {
@@ -20,7 +19,7 @@ namespace ISL.Providers.Captcha.FakeCaptcha.Tests.Unit.Services.Foundations.Capt
         {
             // given
             var invalidArgumentCaptchaException =
-                new InvalidArgumentCaptchaException(
+                new InvalidCaptchaArgumentException(
                     "Invalid Captcha argument. Please correct the errors and try again.");
 
             invalidArgumentCaptchaException.AddData(
@@ -32,24 +31,21 @@ namespace ISL.Providers.Captcha.FakeCaptcha.Tests.Unit.Services.Foundations.Capt
                     message: "Captcha validation error occurred, please fix the errors and try again.",
                     innerException: invalidArgumentCaptchaException);
 
-            var captchaServiceMock = new Mock<CaptchaService>()
-            {
-                CallBase = true
-            };
-
-            captchaServiceMock.Setup(service =>
-                service.ValidateCaptchaValidationArguments(invalidCaptchaToken))
+            googleReCaptchaBroker.Setup(broker =>
+                broker.ValidateCaptchaAsync(invalidCaptchaToken, ""))
                     .Throws(invalidArgumentCaptchaException);
 
             // when
             ValueTask<bool> validateCaptchaAction =
-                captchaServiceMock.Object.ValidateCaptchaAsync(invalidCaptchaToken, invalidCaptchaToken);
+                captchaService.ValidateCaptchaAsync(invalidCaptchaToken, invalidCaptchaToken);
 
             CaptchaValidationException actualException =
                 await Assert.ThrowsAsync<CaptchaValidationException>(validateCaptchaAction.AsTask);
 
             // then
             actualException.Should().BeEquivalentTo(expectedCaptchaValidationException);
+
+
         }
     }
 }
