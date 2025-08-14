@@ -4,8 +4,9 @@
 
 using ISL.Providers.Captcha.GoogleReCaptcha.Models.Brokers;
 using ISL.Providers.Captcha.GoogleReCaptcha.Models.Brokers.GoogleReCaptcha;
-using RESTFulSense.Clients;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -14,31 +15,35 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Brokers.GoogleReCaptchaBroker
     internal class GoogleReCaptchaBroker : IGoogleReCaptchaBroker
     {
         private readonly GoogleReCaptchaConfigurations googleReCaptchaConfigurations;
-        private readonly IRESTFulApiFactoryClient apiClient;
         private readonly HttpClient httpClient;
 
         public GoogleReCaptchaBroker(GoogleReCaptchaConfigurations googleReCaptchaConfigurations)
         {
             this.googleReCaptchaConfigurations = googleReCaptchaConfigurations;
             httpClient = SetupHttpClient();
-            apiClient = SetupApiClient();
         }
 
-        public async ValueTask<bool> ValidateCaptchaAsync(string captchaToken, string userIp = "")
+        public async ValueTask<GoogleReCaptchaResponse> ValidateCaptchaAsync(string captchaToken, string userIp = "")
         {
-            string route = googleReCaptchaConfigurations.ApiUrl;
+            string route = "api/siteverify";
 
-            var request = new GoogleReCaptchaRequest
+            string path = googleReCaptchaConfigurations.ApiUrl.EndsWith("/")
+                ? route
+                : $"/{route}";
+
+            var formData = new Dictionary<string, string>
             {
-                ApiSecret = googleReCaptchaConfigurations.ApiSecret,
-                CaptchaToken = captchaToken,
-                UserIp = userIp
+                { "secret", googleReCaptchaConfigurations.ApiSecret },
+                { "response", captchaToken },
+                { "remoteip", userIp }
             };
 
-            GoogleReCaptchaResponse response = 
-                await apiClient.PostContentAsync<GoogleReCaptchaRequest, GoogleReCaptchaResponse>(route, request);
+            HttpResponseMessage response = await httpClient.PostAsync(route, new FormUrlEncodedContent(formData));
+            response.EnsureSuccessStatusCode();
+            var json = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<GoogleReCaptchaResponse>(json);
 
-            return response.Success;
+            return result;
         }
 
         private HttpClient SetupHttpClient()
@@ -50,8 +55,5 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Brokers.GoogleReCaptchaBroker
 
             return httpClient;
         }
-
-        private IRESTFulApiFactoryClient SetupApiClient() =>
-            new RESTFulApiFactoryClient(httpClient);
     }
 }
