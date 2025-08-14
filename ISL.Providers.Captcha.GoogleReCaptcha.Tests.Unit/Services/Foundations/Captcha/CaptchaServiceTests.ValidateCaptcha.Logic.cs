@@ -5,8 +5,9 @@
 using Moq;
 using System.Threading.Tasks;
 using FluentAssertions;
-using ISL.Providers.Captcha.GoogleReCaptcha.Models.Brokers.GoogleReCaptcha;
 using Force.DeepCloner;
+using System.Collections.Generic;
+using System.Net.Http;
 
 namespace ISL.Providers.Captcha.GoogleReCaptcha.Tests.Unit.Services.Foundations.Captcha
 {
@@ -18,12 +19,14 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Tests.Unit.Services.Foundations.
             // Given
             string randomString = GetRandomString();
             string inputCaptchaToken = randomString;
-            GoogleReCaptchaResponse googleReCaptchaResponse = CreateGoogleReCaptchaResponse();
-            GoogleReCaptchaResponse outputGoogleReCaptchaResponse = googleReCaptchaResponse.DeepClone();
-            bool expectedResponse = outputGoogleReCaptchaResponse.Success;
+            string secret = googleReCaptchaConfigurations.ApiSecret;
+            Dictionary<string, string> inputFormData = CreateRandomFormData(secret, inputCaptchaToken);
+            HttpResponseMessage googleReCaptchaResponse = CreateHttpRepsonseMessage();
+            HttpResponseMessage outputGoogleReCaptchaResponse = googleReCaptchaResponse.DeepClone();
+            bool expectedResponse = await GetSuccessFromHttpResponse(outputGoogleReCaptchaResponse);
 
             this.googleReCaptchaBroker.Setup(broker =>
-                broker.ValidateCaptchaAsync(inputCaptchaToken, ""))
+                broker.ValidateCaptchaAsync(inputFormData))
                     .ReturnsAsync(outputGoogleReCaptchaResponse);
 
             // When
@@ -33,7 +36,7 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Tests.Unit.Services.Foundations.
             actualResponse.Should().Be(expectedResponse);
 
             this.googleReCaptchaBroker.Verify(broker =>
-                broker.ValidateCaptchaAsync(inputCaptchaToken, ""),
+                broker.ValidateCaptchaAsync(inputFormData),
                     Times.Once());
 
             this.googleReCaptchaBroker.VerifyNoOtherCalls();

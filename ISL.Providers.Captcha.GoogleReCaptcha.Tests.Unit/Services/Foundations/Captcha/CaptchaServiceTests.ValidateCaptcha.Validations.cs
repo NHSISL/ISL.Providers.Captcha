@@ -2,6 +2,7 @@
 // Copyright (c) North East London ICB. All rights reserved.
 // ---------------------------------------------------------
 
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentAssertions;
 using ISL.Providers.Captcha.GoogleReCaptcha.Models.Services.Foundations.Captcha;
@@ -18,6 +19,10 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Tests.Unit.Services.Foundations.
         public async Task ShouldThrowValidationExceptionOnValidateCaptchaAsync(string invalidCaptchaToken)
         {
             // given
+            string someString = GetRandomString();
+            string secret = googleReCaptchaConfigurations.ApiSecret;
+            Dictionary<string, string> someFormData = CreateRandomFormData(secret, invalidCaptchaToken);
+
             var invalidArgumentCaptchaException =
                 new InvalidCaptchaArgumentException(
                     "Invalid Captcha argument. Please correct the errors and try again.");
@@ -32,7 +37,7 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Tests.Unit.Services.Foundations.
                     innerException: invalidArgumentCaptchaException);
 
             googleReCaptchaBroker.Setup(broker =>
-                broker.ValidateCaptchaAsync(invalidCaptchaToken, ""))
+                broker.ValidateCaptchaAsync(someFormData))
                     .Throws(invalidArgumentCaptchaException);
 
             // when

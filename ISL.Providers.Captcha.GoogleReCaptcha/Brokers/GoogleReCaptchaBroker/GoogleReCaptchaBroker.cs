@@ -3,8 +3,6 @@
 // ---------------------------------------------------------
 
 using ISL.Providers.Captcha.GoogleReCaptcha.Models.Brokers;
-using ISL.Providers.Captcha.GoogleReCaptcha.Models.Brokers.GoogleReCaptcha;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -23,27 +21,11 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Brokers.GoogleReCaptchaBroker
             httpClient = SetupHttpClient();
         }
 
-        public async ValueTask<GoogleReCaptchaResponse> ValidateCaptchaAsync(string captchaToken, string userIp = "")
+        public async ValueTask<HttpResponseMessage> ValidateCaptchaAsync(Dictionary<string, string> formData)
         {
             string route = "api/siteverify";
 
-            string path = googleReCaptchaConfigurations.ApiUrl.EndsWith("/")
-                ? route
-                : $"/{route}";
-
-            var formData = new Dictionary<string, string>
-            {
-                { "secret", googleReCaptchaConfigurations.ApiSecret },
-                { "response", captchaToken },
-                { "remoteip", userIp }
-            };
-
-            HttpResponseMessage response = await httpClient.PostAsync(route, new FormUrlEncodedContent(formData));
-            response.EnsureSuccessStatusCode();
-            var json = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<GoogleReCaptchaResponse>(json);
-
-            return result;
+            return await httpClient.PostAsync(route, new FormUrlEncodedContent(formData));
         }
 
         private HttpClient SetupHttpClient()

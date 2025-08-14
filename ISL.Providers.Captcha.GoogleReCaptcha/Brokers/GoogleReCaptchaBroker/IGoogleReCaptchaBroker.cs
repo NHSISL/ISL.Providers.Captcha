@@ -2,13 +2,14 @@
 // Copyright (c) North East London ICB. All rights reserved.
 // ---------------------------------------------------------
 
-using ISL.Providers.Captcha.GoogleReCaptcha.Models.Brokers.GoogleReCaptcha;
+using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace ISL.Providers.Captcha.GoogleReCaptcha.Brokers.GoogleReCaptchaBroker
 {
     internal interface IGoogleReCaptchaBroker
     {
-        ValueTask<GoogleReCaptchaResponse> ValidateCaptchaAsync(string captchaToken, string userIp = "");
+        ValueTask<HttpResponseMessage> ValidateCaptchaAsync(Dictionary<string, string> formData);
     }
 }

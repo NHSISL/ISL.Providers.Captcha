@@ -7,7 +7,13 @@ using ISL.Providers.Captcha.GoogleReCaptcha.Models.Brokers;
 using ISL.Providers.Captcha.GoogleReCaptcha.Models.Brokers.GoogleReCaptcha;
 using ISL.Providers.Captcha.GoogleReCaptcha.Services.Foundations.Captcha;
 using Moq;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 using Tynamix.ObjectFiller;
 
 namespace ISL.Providers.Captcha.GoogleReCaptcha.Tests.Unit.Services.Foundations.Captcha
@@ -35,18 +41,50 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Tests.Unit.Services.Foundations.
         private static string GetRandomString() =>
             new MnemonicString().GetValue();
 
-        private static GoogleReCaptchaResponse CreateGoogleReCaptchaResponse() =>
-            CreateGoogleReCaptchaResponseFiller().Create();
-
-        private static Filler<GoogleReCaptchaResponse> CreateGoogleReCaptchaResponseFiller()
+        private static bool GetRandomBoolean()
         {
-            DateTimeOffset dateTimeOffset = DateTimeOffset.UtcNow;
-            var filler = new Filler<GoogleReCaptchaResponse>();
+            var random = new Random();
 
-            filler.Setup()
-                .OnType<DateTimeOffset>().Use(dateTimeOffset);
+            return random.Next() > (Int32.MaxValue / 2);
+        }
 
-            return filler;
+        private static Dictionary<string, string> CreateRandomFormData(string secret, string captchaToken)
+        {
+            var formData = new Dictionary<string, string>
+                {
+                    { "secret", secret },
+                    { "response", captchaToken },
+                    { "remoteip", string.Empty }
+                };
+
+            return formData;
+        }
+
+        private static HttpResponseMessage CreateHttpRepsonseMessage()
+        {
+            var response = new GoogleReCaptchaResponse
+            {
+                ChallengeTime = DateTimeOffset.UtcNow,
+                Hostname = GetRandomString(),
+                Success = GetRandomBoolean()
+            };
+
+            var json = JsonConvert.SerializeObject(response);
+
+            var httpResponse = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent(json, Encoding.UTF8, "application/json")
+            };
+
+            return httpResponse;
+        }
+
+        private static async ValueTask<bool> GetSuccessFromHttpResponse(HttpResponseMessage httpResponse)
+        {
+            var json = await httpResponse.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<GoogleReCaptchaResponse>(json);
+
+            return result.Success;
         }
     }
 }

@@ -3,6 +3,7 @@
 // ---------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentAssertions;
 using ISL.Providers.Captcha.GoogleReCaptcha.Models.Services.Foundations.Captcha;
@@ -18,6 +19,8 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Tests.Unit.Services.Foundations.
             // given
             var serviceException = new Exception();
             string someString = GetRandomString();
+            string secret = googleReCaptchaConfigurations.ApiSecret;
+            Dictionary<string, string> someFormData = CreateRandomFormData(secret, someString);
 
             var failedServiceCaptchaException =
                 new FailedCaptchaServiceException(
@@ -31,7 +34,7 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Tests.Unit.Services.Foundations.
                     innerException: failedServiceCaptchaException);
 
             this.googleReCaptchaBroker.Setup(broker =>
-                broker.ValidateCaptchaAsync(someString, ""))
+                broker.ValidateCaptchaAsync(someFormData))
                     .Throws(serviceException);
 
             // when
