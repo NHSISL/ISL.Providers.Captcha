@@ -36,6 +36,8 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Services.Foundations.Captcha
                     { "remoteip", userIp }
                 };
 
+                ValidateFormData(formData);
+
                 HttpResponseMessage googleReCaptchaResponse = 
                     await this.googleReCaptchaBroker.ValidateCaptchaAsync(formData);
 

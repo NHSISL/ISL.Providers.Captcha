@@ -24,6 +24,10 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Services.Foundations.Captcha
             {
                 throw await CreateAndLogValidationExceptionAsync(invalidCaptchaArgumentException);
             }
+            catch (InvalidCaptchaFormDataException invalidCaptchaFormDataException)
+            {
+                throw await CreateAndLogValidationExceptionAsync(invalidCaptchaFormDataException);
+            }
             catch (Exception exception)
             {
                 var failedServiceIdentificationRequestException =
