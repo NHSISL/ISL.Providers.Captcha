@@ -5,7 +5,7 @@
 using ISL.Providers.Captcha.GoogleReCaptcha.Brokers.GoogleReCaptchaBroker;
 using ISL.Providers.Captcha.GoogleReCaptcha.Models.Brokers;
 using ISL.Providers.Captcha.GoogleReCaptcha.Models.Providers.Exceptions;
-using ISL.Providers.Captcha.GoogleReCaptcha.Models.Services.Foundations.Captcha;
+using ISL.Providers.Captcha.GoogleReCaptcha.Models.Services.Foundations.Captcha.Exceptions;
 using ISL.Providers.Captcha.GoogleReCaptcha.Services.Foundations.Captcha;
 using Microsoft.Extensions.DependencyInjection;
 using System;

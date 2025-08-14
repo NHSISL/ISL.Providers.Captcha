@@ -4,7 +4,7 @@
 
 using Xeptions;
 
-namespace ISL.Providers.Captcha.GoogleReCaptcha.Models.Services.Foundations.Captcha
+namespace ISL.Providers.Captcha.GoogleReCaptcha.Models.Services.Foundations.Captcha.Exceptions
 {
     public class CaptchaServiceException : Xeption
     {
