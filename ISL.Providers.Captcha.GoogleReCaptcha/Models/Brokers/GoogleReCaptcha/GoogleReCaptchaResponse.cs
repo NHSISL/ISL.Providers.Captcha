@@ -16,8 +16,8 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Models.Brokers.GoogleReCaptcha
         [JsonProperty("challenge_ts")]
         public DateTimeOffset ChallengeTime { get; set; }
 
-        [JsonProperty("apk_package_name")]
-        public string ApkPackageName { get; set; }
+        [JsonProperty("hostname")]
+        public string Hostname { get; set; }
 
         [JsonProperty("error-codes")]
         public List<string> ErrorCodes { get; set; }

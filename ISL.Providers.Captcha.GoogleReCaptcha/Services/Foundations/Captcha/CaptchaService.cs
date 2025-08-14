@@ -4,6 +4,7 @@
 
 using ISL.Providers.Captcha.GoogleReCaptcha.Brokers.GoogleReCaptchaBroker;
 using ISL.Providers.Captcha.GoogleReCaptcha.Models.Brokers;
+using ISL.Providers.Captcha.GoogleReCaptcha.Models.Brokers.GoogleReCaptcha;
 using System.Threading.Tasks;
 
 namespace ISL.Providers.Captcha.GoogleReCaptcha.Services.Foundations.Captcha
@@ -25,7 +26,10 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Services.Foundations.Captcha
             {
                 ValidateCaptchaValidationArguments(captchaToken);
 
-                return await this.googleReCaptchaBroker.ValidateCaptchaAsync(captchaToken, userIp);
+                GoogleReCaptchaResponse googleReCaptchaResponse = 
+                    await this.googleReCaptchaBroker.ValidateCaptchaAsync(captchaToken, userIp);
+
+                return googleReCaptchaResponse.Success;
             });
     }
 }

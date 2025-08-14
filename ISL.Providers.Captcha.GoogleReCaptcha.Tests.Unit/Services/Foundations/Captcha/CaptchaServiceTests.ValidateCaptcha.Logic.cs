@@ -5,6 +5,8 @@
 using Moq;
 using System.Threading.Tasks;
 using FluentAssertions;
+using ISL.Providers.Captcha.GoogleReCaptcha.Models.Brokers.GoogleReCaptcha;
+using Force.DeepCloner;
 
 namespace ISL.Providers.Captcha.GoogleReCaptcha.Tests.Unit.Services.Foundations.Captcha
 {
@@ -16,11 +18,13 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Tests.Unit.Services.Foundations.
             // Given
             string randomString = GetRandomString();
             string inputCaptchaToken = randomString;
-            bool expectedResponse = true;
+            GoogleReCaptchaResponse googleReCaptchaResponse = CreateGoogleReCaptchaResponse();
+            GoogleReCaptchaResponse outputGoogleReCaptchaResponse = googleReCaptchaResponse.DeepClone();
+            bool expectedResponse = outputGoogleReCaptchaResponse.Success;
 
             this.googleReCaptchaBroker.Setup(broker =>
                 broker.ValidateCaptchaAsync(inputCaptchaToken, ""))
-                    .ReturnsAsync(true);
+                    .ReturnsAsync(outputGoogleReCaptchaResponse);
 
             // When
             bool actualResponse = await captchaService.ValidateCaptchaAsync(inputCaptchaToken, "");

@@ -18,8 +18,6 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Tests.Acceptance
         {
             // given
             string randomCaptchaToken = GetRandomString();
-            GoogleReCaptchaRequest randomRequest = CreateRandomGoogleReCaptchaRequest(randomCaptchaToken);
-            GoogleReCaptchaRequest inputRequest = randomRequest.DeepClone();
             GoogleReCaptchaResponse randomResponse = CreateRandomGoogleReCaptchaResponse();
             GoogleReCaptchaResponse outputResponse = randomResponse.DeepClone();
             bool expectedResponse = outputResponse.Success;
