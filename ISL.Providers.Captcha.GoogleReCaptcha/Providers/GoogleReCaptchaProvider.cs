@@ -2,7 +2,7 @@
 // Copyright (c) North East London ICB. All rights reserved.
 // ---------------------------------------------------------
 
-using ISL.Providers.Captcha.GoogleReCaptcha.Models.Brokers;
+using ISL.Providers.Captcha.GoogleReCaptcha.Models.Brokers.GoogleReCaptcha;
 using ISL.Providers.Captcha.GoogleReCaptcha.Models.Providers.Exceptions;
 using ISL.Providers.Captcha.GoogleReCaptcha.Models.Services.Foundations.Captcha;
 using ISL.Providers.Captcha.GoogleReCaptcha.Services.Foundations.Captcha;
