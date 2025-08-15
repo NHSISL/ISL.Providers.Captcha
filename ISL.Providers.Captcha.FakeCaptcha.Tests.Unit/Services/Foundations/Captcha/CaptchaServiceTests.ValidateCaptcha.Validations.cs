@@ -50,8 +50,6 @@ namespace ISL.Providers.Captcha.FakeCaptcha.Tests.Unit.Services.Foundations.Capt
 
             // then
             actualException.Should().BeEquivalentTo(expectedCaptchaValidationException);
-
-
         }
     }
 }

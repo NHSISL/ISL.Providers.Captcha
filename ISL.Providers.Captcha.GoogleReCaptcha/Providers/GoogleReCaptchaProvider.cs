@@ -2,9 +2,10 @@
 // Copyright (c) North East London ICB. All rights reserved.
 // ---------------------------------------------------------
 
+using ISL.Providers.Captcha.GoogleReCaptcha.Brokers.GoogleReCaptchaBroker;
 using ISL.Providers.Captcha.GoogleReCaptcha.Models.Brokers.GoogleReCaptcha;
 using ISL.Providers.Captcha.GoogleReCaptcha.Models.Providers.Exceptions;
-using ISL.Providers.Captcha.GoogleReCaptcha.Models.Services.Foundations.Captcha;
+using ISL.Providers.Captcha.GoogleReCaptcha.Models.Services.Foundations.Captcha.Exceptions;
 using ISL.Providers.Captcha.GoogleReCaptcha.Services.Foundations.Captcha;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -100,6 +101,7 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Providers
         private static IServiceProvider RegisterServices(GoogleReCaptchaConfigurations configurations)
         {
             var serviceCollection = new ServiceCollection()
+                .AddTransient<IGoogleReCaptchaBroker, GoogleReCaptchaBroker>()
                 .AddTransient<ICaptchaService, CaptchaService>()
                 .AddSingleton(configurations);
 

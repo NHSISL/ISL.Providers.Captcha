@@ -4,11 +4,11 @@
 
 using Xeptions;
 
-namespace ISL.Providers.Captcha.GoogleReCaptcha.Models.Services.Foundations.Captcha
+namespace ISL.Providers.Captcha.GoogleReCaptcha.Models.Services.Foundations.Captcha.Exceptions
 {
-    public class CaptchaDependencyValidationException : Xeption
+    public class CaptchaDependencyException : Xeption
     {
-        public CaptchaDependencyValidationException(string message, Xeption innerException)
+        public CaptchaDependencyException(string message, Xeption innerException)
             : base(message, innerException)
         { }
     }
