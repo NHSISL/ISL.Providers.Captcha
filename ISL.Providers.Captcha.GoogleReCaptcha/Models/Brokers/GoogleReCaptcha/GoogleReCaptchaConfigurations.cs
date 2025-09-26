@@ -6,7 +6,8 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Models.Brokers.GoogleReCaptcha
 {
     public class GoogleReCaptchaConfigurations
     {
-        public string ApiUrl { get; set; }
+        public string ApiBaseUrl { get; set; }
+        public string ApiRoute { get; set; }
         public string ApiSecret { get; set; }
     }
 }

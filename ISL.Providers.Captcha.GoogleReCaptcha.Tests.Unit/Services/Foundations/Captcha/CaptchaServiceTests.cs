@@ -2,18 +2,17 @@
 // Copyright (c) North East London ICB. All rights reserved.
 // ---------------------------------------------------------
 
-using ISL.Providers.Captcha.GoogleReCaptcha.Brokers.GoogleReCaptchaBroker;
-using ISL.Providers.Captcha.GoogleReCaptcha.Models.Brokers;
-using ISL.Providers.Captcha.GoogleReCaptcha.Models.Brokers.GoogleReCaptcha;
-using ISL.Providers.Captcha.GoogleReCaptcha.Services.Foundations.Captcha;
-using Moq;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using ISL.Providers.Captcha.GoogleReCaptcha.Brokers.GoogleReCaptchaBroker;
+using ISL.Providers.Captcha.GoogleReCaptcha.Models.Brokers.GoogleReCaptcha;
+using ISL.Providers.Captcha.GoogleReCaptcha.Services.Foundations.Captcha;
+using Moq;
+using Newtonsoft.Json;
 using Tynamix.ObjectFiller;
 
 namespace ISL.Providers.Captcha.GoogleReCaptcha.Tests.Unit.Services.Foundations.Captcha
@@ -29,7 +28,8 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Tests.Unit.Services.Foundations.
             this.googleReCaptchaBroker = new Mock<IGoogleReCaptchaBroker>();
             this.googleReCaptchaConfigurations = new GoogleReCaptchaConfigurations
             {
-                ApiUrl = GetRandomString(),
+                ApiBaseUrl = GetRandomString(),
+                ApiRoute = GetRandomString(),
                 ApiSecret = GetRandomString()
             };
 

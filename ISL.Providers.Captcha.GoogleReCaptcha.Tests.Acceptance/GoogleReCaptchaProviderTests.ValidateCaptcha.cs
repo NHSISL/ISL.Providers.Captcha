@@ -2,10 +2,10 @@
 // Copyright (c) North East London ICB. All rights reserved.
 // ---------------------------------------------------------
 
+using System.Threading.Tasks;
 using FluentAssertions;
 using Force.DeepCloner;
 using ISL.Providers.Captcha.GoogleReCaptcha.Models.Brokers.GoogleReCaptcha;
-using System.Threading.Tasks;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
 
@@ -21,7 +21,7 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Tests.Acceptance
             GoogleReCaptchaResponse randomResponse = CreateRandomGoogleReCaptchaResponse();
             GoogleReCaptchaResponse outputResponse = randomResponse.DeepClone();
             bool expectedResponse = outputResponse.Success;
-            var path = "/api/siteverify";
+            var path = $"/{googleReCaptchaConfigurations.ApiRoute}";
 
             this.wireMockServer
                 .Given(
