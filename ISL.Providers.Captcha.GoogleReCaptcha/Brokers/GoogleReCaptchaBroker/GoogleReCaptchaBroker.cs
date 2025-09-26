@@ -2,7 +2,6 @@
 // Copyright (c) North East London ICB. All rights reserved.
 // ---------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -23,21 +22,14 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Brokers.GoogleReCaptchaBroker
 
         public async ValueTask<HttpResponseMessage> ValidateCaptchaAsync(Dictionary<string, string> formData)
         {
-            string route = googleReCaptchaConfigurations.ApiRoute;
+            string requestUri = googleReCaptchaConfigurations.ApiUrl;
 
-            string path = googleReCaptchaConfigurations.ApiBaseUrl.EndsWith("/")
-                ? route
-                : $"/{route}";
-
-            return await httpClient.PostAsync(path, new FormUrlEncodedContent(formData));
+            return await httpClient.PostAsync(requestUri, new FormUrlEncodedContent(formData));
         }
 
         private HttpClient SetupHttpClient()
         {
-            var httpClient = new HttpClient()
-            {
-                BaseAddress = new Uri(uriString: googleReCaptchaConfigurations.ApiBaseUrl),
-            };
+            var httpClient = new HttpClient();
 
             return httpClient;
         }

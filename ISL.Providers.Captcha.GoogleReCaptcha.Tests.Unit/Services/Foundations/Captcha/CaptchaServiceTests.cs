@@ -28,8 +28,7 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Tests.Unit.Services.Foundations.
             this.googleReCaptchaBroker = new Mock<IGoogleReCaptchaBroker>();
             this.googleReCaptchaConfigurations = new GoogleReCaptchaConfigurations
             {
-                ApiBaseUrl = GetRandomString(),
-                ApiRoute = GetRandomString(),
+                ApiUrl = GetRandomString(),
                 ApiSecret = GetRandomString()
             };
 

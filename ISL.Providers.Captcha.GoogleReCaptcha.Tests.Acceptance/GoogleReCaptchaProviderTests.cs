@@ -31,8 +31,7 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Tests.Acceptance
             this.googleReCaptchaConfigurations = configuration
                 .GetSection("googleReCaptchaConfigurations").Get<GoogleReCaptchaConfigurations>();
 
-            googleReCaptchaConfigurations.ApiBaseUrl = wireMockServer.Url;
-            googleReCaptchaConfigurations.ApiRoute = "api/siteverify";
+            googleReCaptchaConfigurations.ApiUrl = wireMockServer.Url;
 
             this.googleReCaptchaProvider = new GoogleReCaptchaProvider(googleReCaptchaConfigurations);
         }

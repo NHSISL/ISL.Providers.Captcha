@@ -21,12 +21,10 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Tests.Acceptance
             GoogleReCaptchaResponse randomResponse = CreateRandomGoogleReCaptchaResponse();
             GoogleReCaptchaResponse outputResponse = randomResponse.DeepClone();
             bool expectedResponse = outputResponse.Success;
-            var path = $"/{googleReCaptchaConfigurations.ApiRoute}";
 
             this.wireMockServer
                 .Given(
                     Request.Create()
-                        .WithPath(path)
                         .UsingPost())
                 .RespondWith(
                     Response.Create()
