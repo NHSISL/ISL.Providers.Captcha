@@ -18,7 +18,7 @@ namespace ISL.Providers.Captcha.Abstractions
         /// Uses Captcha service to validate a user request given a captcha token and user IP
         /// </summary>
         /// <returns>
-        /// A captcha result object containg a bool indicating whether the validation was successful and a score of
+        /// A captcha result object containing a bool indicating whether the validation was successful and a score of
         /// how likely the user is a human
         /// </returns>
         /// <exception cref="CaptchaValidationProviderException" />
