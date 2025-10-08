@@ -2,8 +2,9 @@
 // Copyright (c) North East London ICB. All rights reserved.
 // ---------------------------------------------------------
 
-using FluentAssertions;
 using System.Threading.Tasks;
+using FluentAssertions;
+using ISL.Providers.Captcha.Abstractions.Models;
 
 namespace ISL.Providers.Captcha.GoogleReCaptcha.Tests.Integration
 {
@@ -14,14 +15,21 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Tests.Integration
         {
             // given
             string inputCaptchaToken = "valid-captcha";
-            bool expectedResponse = true;
+            bool expectedIsValid = true;
+            double expectedScore = 0.0;
+
+            CaptchaResult expectedCaptchaResult = new CaptchaResult
+            {
+                IsCaptchaValid = expectedIsValid,
+                Score = expectedScore
+            };
 
             // when
-            bool actualResponse =
+            CaptchaResult actualResponse =
                 await this.googleReCaptchaProvider.ValidateCaptchaAsync(inputCaptchaToken, "");
 
             // then
-            actualResponse.Should().Be(expectedResponse);
+            actualResponse.Should().BeEquivalentTo(expectedCaptchaResult);
         }
     }
 }

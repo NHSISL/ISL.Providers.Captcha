@@ -3,6 +3,7 @@
 // ---------------------------------------------------------
 
 using System.Threading.Tasks;
+using ISL.Providers.Captcha.Abstractions.Models;
 
 namespace ISL.Providers.Captcha.Abstractions
 {
@@ -12,8 +13,9 @@ namespace ISL.Providers.Captcha.Abstractions
         /// Uses Captcha service to validate a user request given a captcha token and user IP
         /// </summary>
         /// <returns>
-        /// A bool to signify whether the validation was successful
+        /// A captcha result object containg a bool indicating whether the validation was successful and a score of
+        /// how likely the user is a human
         /// </returns>
-        ValueTask<bool> ValidateCaptchaAsync(string captchaToken, string userIp = "");
+        ValueTask<CaptchaResult> ValidateCaptchaAsync(string captchaToken, string userIp = "");
     }
 }

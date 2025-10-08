@@ -2,12 +2,13 @@
 // Copyright (c) North East London ICB. All rights reserved.
 // ---------------------------------------------------------
 
-using Moq;
+using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Force.DeepCloner;
-using System.Collections.Generic;
-using System.Net.Http;
+using ISL.Providers.Captcha.Abstractions.Models;
+using Moq;
 
 namespace ISL.Providers.Captcha.GoogleReCaptcha.Tests.Unit.Services.Foundations.Captcha
 {
@@ -23,17 +24,17 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Tests.Unit.Services.Foundations.
             Dictionary<string, string> inputFormData = CreateRandomFormData(secret, inputCaptchaToken);
             HttpResponseMessage googleReCaptchaResponse = CreateHttpRepsonseMessage();
             HttpResponseMessage outputGoogleReCaptchaResponse = googleReCaptchaResponse.DeepClone();
-            bool expectedResponse = await GetSuccessFromHttpResponse(outputGoogleReCaptchaResponse);
+            CaptchaResult expectedResponse = await GetCaptchaResultFromHttpResponse(outputGoogleReCaptchaResponse);
 
             this.googleReCaptchaBroker.Setup(broker =>
                 broker.ValidateCaptchaAsync(inputFormData))
                     .ReturnsAsync(outputGoogleReCaptchaResponse);
 
             // When
-            bool actualResponse = await captchaService.ValidateCaptchaAsync(inputCaptchaToken, "");
+            CaptchaResult actualResponse = await captchaService.ValidateCaptchaAsync(inputCaptchaToken, "");
 
             // Then
-            actualResponse.Should().Be(expectedResponse);
+            actualResponse.Should().BeEquivalentTo(expectedResponse);
 
             this.googleReCaptchaBroker.Verify(broker =>
                 broker.ValidateCaptchaAsync(inputFormData),

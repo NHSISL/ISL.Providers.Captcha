@@ -2,12 +2,13 @@
 // Copyright (c) North East London ICB. All rights reserved.
 // ---------------------------------------------------------
 
+using System;
+using System.Threading.Tasks;
 using FluentAssertions;
+using ISL.Providers.Captcha.Abstractions.Models;
 using ISL.Providers.Captcha.FakeCaptcha.Models.Foundations.Captcha.Exceptions;
 using ISL.Providers.Captcha.FakeCaptcha.Services.Foundations;
 using Moq;
-using System;
-using System.Threading.Tasks;
 
 namespace ISL.Providers.Captcha.FakeCaptcha.Tests.Unit.Services.Foundations.Captcha
 {
@@ -41,7 +42,7 @@ namespace ISL.Providers.Captcha.FakeCaptcha.Tests.Unit.Services.Foundations.Capt
                     .Throws(serviceException);
 
             // when
-            ValueTask<bool> validateCaptchaTask =
+            ValueTask<CaptchaResult> validateCaptchaTask =
                 captchaServiceMock.Object.ValidateCaptchaAsync(someString, someString);
 
             CaptchaServiceException actualCaptchaServiceException =

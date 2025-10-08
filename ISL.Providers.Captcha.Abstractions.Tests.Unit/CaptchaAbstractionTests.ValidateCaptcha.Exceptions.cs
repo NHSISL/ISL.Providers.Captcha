@@ -2,11 +2,12 @@
 // Copyright (c) North East London ICB. All rights reserved.
 // ---------------------------------------------------------
 
+using System.Threading.Tasks;
 using FluentAssertions;
+using ISL.Providers.Captcha.Abstractions.Models;
 using ISL.Providers.Captcha.Abstractions.Models.Exceptions;
 using ISL.Providers.Captcha.Abstractions.Tests.Unit.Models.Exceptions;
 using Moq;
-using System.Threading.Tasks;
 using Xeptions;
 
 namespace ISL.Providers.Captcha.Abstractions.Tests.Unit
@@ -35,7 +36,7 @@ namespace ISL.Providers.Captcha.Abstractions.Tests.Unit
                     .ThrowsAsync(someCaptchaValidationException);
 
             // when
-            ValueTask<bool> validateCaptchaTask =
+            ValueTask<CaptchaResult> validateCaptchaTask =
                 this.captchaAbstractionProvider.ValidateCaptchaAsync(It.IsAny<string>(), It.IsAny<string>());
 
             CaptchaProviderValidationException actualCaptchaValidationProviderException =
@@ -74,7 +75,7 @@ namespace ISL.Providers.Captcha.Abstractions.Tests.Unit
                     .ThrowsAsync(someCaptchaValidationException);
 
             // when
-            ValueTask<bool> validateCaptchaTask =
+            ValueTask<CaptchaResult> validateCaptchaTask =
                 this.captchaAbstractionProvider.ValidateCaptchaAsync(It.IsAny<string>(), It.IsAny<string>());
 
             CaptchaProviderValidationException actualCaptchaValidationProviderException =
@@ -112,7 +113,7 @@ namespace ISL.Providers.Captcha.Abstractions.Tests.Unit
                     .ThrowsAsync(someCaptchaValidationException);
 
             // when
-            ValueTask<bool> validateCaptchaTask =
+            ValueTask<CaptchaResult> validateCaptchaTask =
                 this.captchaAbstractionProvider.ValidateCaptchaAsync(It.IsAny<string>(), It.IsAny<string>());
 
             CaptchaProviderDependencyException actualCaptchaDependencyProviderException =
@@ -150,7 +151,7 @@ namespace ISL.Providers.Captcha.Abstractions.Tests.Unit
                     .ThrowsAsync(someCaptchaValidationException);
 
             // when
-            ValueTask<bool> validateCaptchaTask =
+            ValueTask<CaptchaResult> validateCaptchaTask =
                 this.captchaAbstractionProvider.ValidateCaptchaAsync(It.IsAny<string>(), It.IsAny<string>());
 
             CaptchaProviderServiceException actualCaptchaServiceProviderException =
@@ -190,7 +191,7 @@ namespace ISL.Providers.Captcha.Abstractions.Tests.Unit
                     .ThrowsAsync(someException);
 
             // when
-            ValueTask<bool> validateCaptchaTask =
+            ValueTask<CaptchaResult> validateCaptchaTask =
                 this.captchaAbstractionProvider.ValidateCaptchaAsync(It.IsAny<string>(), It.IsAny<string>());
 
             CaptchaProviderServiceException actualCaptchaServiceProviderException =

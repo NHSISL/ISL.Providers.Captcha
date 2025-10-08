@@ -2,9 +2,10 @@
 // Copyright (c) North East London ICB. All rights reserved.
 // ---------------------------------------------------------
 
+using System.Threading.Tasks;
 using FluentAssertions;
 using Force.DeepCloner;
-using System.Threading.Tasks;
+using ISL.Providers.Captcha.Abstractions.Models;
 
 namespace ISL.Providers.Captcha.FakeCaptcha.Tests.Acceptance
 {
@@ -18,14 +19,21 @@ namespace ISL.Providers.Captcha.FakeCaptcha.Tests.Acceptance
             string randomUserIp = GetRandomString();
             string inputCaptchaToken = randomCaptchaToken.DeepClone();
             string inputUserIp = randomUserIp.DeepClone();
-            bool expectedResponse = true;
+            bool expectedIsValid = true;
+            double expectedScore = 1.0;
+
+            CaptchaResult expectedCaptchaResult = new CaptchaResult
+            {
+                IsCaptchaValid = expectedIsValid,
+                Score = expectedScore
+            };
 
             // when
-            bool actualResponse =
+            CaptchaResult actualResponse =
                 await this.fakeCaptchaProvider.ValidateCaptchaAsync(inputCaptchaToken, inputUserIp);
 
             // then
-            actualResponse.Should().Be(expectedResponse);
+            actualResponse.Should().BeEquivalentTo(expectedCaptchaResult);
         }
     }
 }

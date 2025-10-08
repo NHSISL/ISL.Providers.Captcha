@@ -2,20 +2,21 @@
 // Copyright (c) North East London ICB. All rights reserved.
 // ---------------------------------------------------------
 
+using System;
+using System.Threading.Tasks;
+using ISL.Providers.Captcha.Abstractions.Models;
 using ISL.Providers.Captcha.GoogleReCaptcha.Brokers.GoogleReCaptchaBroker;
 using ISL.Providers.Captcha.GoogleReCaptcha.Models.Brokers.GoogleReCaptcha;
 using ISL.Providers.Captcha.GoogleReCaptcha.Models.Providers.Exceptions;
 using ISL.Providers.Captcha.GoogleReCaptcha.Models.Services.Foundations.Captcha.Exceptions;
 using ISL.Providers.Captcha.GoogleReCaptcha.Services.Foundations.Captcha;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Threading.Tasks;
 using Xeptions;
 
 namespace ISL.Providers.Captcha.GoogleReCaptcha.Providers
 {
-    public class GoogleReCaptchaProvider: IGoogleReCaptchaProvider
-    { 
+    public class GoogleReCaptchaProvider : IGoogleReCaptchaProvider
+    {
         private ICaptchaService captchaService { get; set; }
 
         public GoogleReCaptchaProvider(GoogleReCaptchaConfigurations configurations)
@@ -28,13 +29,14 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Providers
         /// Uses Captcha service to validate a user request given a captcha token and user IP
         /// </summary>
         /// <returns>
-        /// A bool to signify whether the validation was successful
+        /// A captcha result object containg a bool indicating whether the validation was successful and a score of
+        /// how likely the user is a human
         /// </returns>
         /// <exception cref="GoogleReCaptchaProviderValidationException" />
         /// <exception cref="GoogleReCaptchaProviderDependencyValidationException" />
         /// <exception cref="GoogleReCaptchaProviderDependencyException" />
         /// <exception cref="GoogleReCaptchaProviderServiceException" />
-        public async ValueTask<bool> ValidateCaptchaAsync(string captchaToken, string userIp = "")
+        public async ValueTask<CaptchaResult> ValidateCaptchaAsync(string captchaToken, string userIp = "")
         {
             try
             {

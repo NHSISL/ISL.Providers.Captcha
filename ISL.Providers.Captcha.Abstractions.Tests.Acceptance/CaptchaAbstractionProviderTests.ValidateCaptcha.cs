@@ -2,10 +2,11 @@
 // Copyright (c) North East London ICB. All rights reserved.
 // ---------------------------------------------------------
 
+using System.Threading.Tasks;
 using FluentAssertions;
 using Force.DeepCloner;
+using ISL.Providers.Captcha.Abstractions.Models;
 using Moq;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace ISL.Providers.Captcha.Abstractions.Tests.Acceptance
@@ -20,20 +21,20 @@ namespace ISL.Providers.Captcha.Abstractions.Tests.Acceptance
             string randomUserIp = GetRandomString();
             string inputCaptchaToken = randomCaptchaToken.DeepClone();
             string inputUserIp = randomUserIp.DeepClone();
-            bool randomOutputBool = GetRandomBool();
-            bool outputBool = randomOutputBool.DeepClone();
-            bool expectedPatient = outputBool.DeepClone();
+            CaptchaResult randomCaptchaResult = CreateRandomCaptchaResult();
+            CaptchaResult outputCaptchaResult = randomCaptchaResult.DeepClone();
+            CaptchaResult expectedCaptchaResult = outputCaptchaResult.DeepClone();
 
             this.captchaProviderMock.Setup(provider =>
                 provider.ValidateCaptchaAsync(inputCaptchaToken, inputUserIp))
-                    .ReturnsAsync(outputBool);
+                    .ReturnsAsync(outputCaptchaResult);
 
             // when
-            bool actualPatient =
+            CaptchaResult actualCaptchaResult =
                 await this.captchaAbstractionProvider.ValidateCaptchaAsync(inputCaptchaToken, inputUserIp);
 
             // then
-            actualPatient.Should().Be(expectedPatient);
+            actualCaptchaResult.Should().BeEquivalentTo(expectedCaptchaResult);
         }
     }
 }

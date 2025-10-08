@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentAssertions;
+using ISL.Providers.Captcha.Abstractions.Models;
 using ISL.Providers.Captcha.GoogleReCaptcha.Models.Services.Foundations.Captcha.Exceptions;
 
 namespace ISL.Providers.Captcha.GoogleReCaptcha.Tests.Unit.Services.Foundations.Captcha
@@ -37,7 +38,7 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Tests.Unit.Services.Foundations.
                     .Throws(serviceException);
 
             // when
-            ValueTask<bool> validateCaptchaTask = captchaService.ValidateCaptchaAsync(someString, "");
+            ValueTask<CaptchaResult> validateCaptchaTask = captchaService.ValidateCaptchaAsync(someString, "");
 
             CaptchaServiceException actualCaptchaServiceException =
                 await Assert.ThrowsAsync<CaptchaServiceException>(

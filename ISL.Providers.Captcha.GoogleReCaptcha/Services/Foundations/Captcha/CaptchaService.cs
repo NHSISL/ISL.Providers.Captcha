@@ -2,13 +2,13 @@
 // Copyright (c) North East London ICB. All rights reserved.
 // ---------------------------------------------------------
 
-using ISL.Providers.Captcha.GoogleReCaptcha.Brokers.GoogleReCaptchaBroker;
-using ISL.Providers.Captcha.GoogleReCaptcha.Models.Brokers;
-using ISL.Providers.Captcha.GoogleReCaptcha.Models.Brokers.GoogleReCaptcha;
-using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using ISL.Providers.Captcha.Abstractions.Models;
+using ISL.Providers.Captcha.GoogleReCaptcha.Brokers.GoogleReCaptchaBroker;
+using ISL.Providers.Captcha.GoogleReCaptcha.Models.Brokers.GoogleReCaptcha;
+using Newtonsoft.Json;
 
 namespace ISL.Providers.Captcha.GoogleReCaptcha.Services.Foundations.Captcha
 {
@@ -24,7 +24,7 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Services.Foundations.Captcha
             this.googleReCaptchaConfigurations = googleReCaptchaConfigurations;
         }
 
-        public ValueTask<bool> ValidateCaptchaAsync(string captchaToken, string userIp = "") =>
+        public ValueTask<CaptchaResult> ValidateCaptchaAsync(string captchaToken, string userIp = "") =>
             TryCatch(async () =>
             {
                 ValidateCaptchaValidationArguments(captchaToken);
@@ -38,14 +38,20 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Services.Foundations.Captcha
 
                 ValidateFormData(formData);
 
-                HttpResponseMessage googleReCaptchaResponse = 
+                HttpResponseMessage googleReCaptchaResponse =
                     await this.googleReCaptchaBroker.ValidateCaptchaAsync(formData);
 
                 googleReCaptchaResponse.EnsureSuccessStatusCode();
                 var json = await googleReCaptchaResponse.Content.ReadAsStringAsync();
                 var result = JsonConvert.DeserializeObject<GoogleReCaptchaResponse>(json);
 
-                return result.Success;
+                var captchaResult = new CaptchaResult
+                {
+                    IsCaptchaValid = result.Success,
+                    Score = result.Score
+                };
+
+                return captchaResult;
             });
     }
 }
