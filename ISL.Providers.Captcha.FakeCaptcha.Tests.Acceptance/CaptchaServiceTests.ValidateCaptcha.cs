@@ -19,12 +19,12 @@ namespace ISL.Providers.Captcha.FakeCaptcha.Tests.Acceptance
             string randomUserIp = GetRandomString();
             string inputCaptchaToken = randomCaptchaToken.DeepClone();
             string inputUserIp = randomUserIp.DeepClone();
-            bool expectedIsValid = true;
+            bool expectedSuccess = true;
             double expectedScore = 1.0;
 
             CaptchaResult expectedCaptchaResult = new CaptchaResult
             {
-                IsCaptchaValid = expectedIsValid,
+                Success = expectedSuccess,
                 Score = expectedScore
             };
 

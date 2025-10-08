@@ -24,7 +24,7 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Tests.Acceptance
 
             var expectedResponse = new CaptchaResult
             {
-                IsCaptchaValid = outputResponse.Success,
+                Success = outputResponse.Success,
                 Score = outputResponse.Score
             };
 

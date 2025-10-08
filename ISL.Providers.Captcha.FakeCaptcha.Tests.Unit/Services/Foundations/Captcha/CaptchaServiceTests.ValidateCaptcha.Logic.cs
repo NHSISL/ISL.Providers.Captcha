@@ -18,12 +18,12 @@ namespace ISL.Providers.Captcha.FakeCaptcha.Tests.Unit.Services.Foundations.Capt
             string randomString = GetRandomString();
             string inputUserIp = randomString.DeepClone();
             string inputCaptchaToken = "valid-captcha";
-            bool expectedIsValid = true;
+            bool expectedSuccess = true;
             double expectedScore = 1.0;
 
             CaptchaResult expectedResponse = new CaptchaResult
             {
-                IsCaptchaValid = expectedIsValid,
+                Success = expectedSuccess,
                 Score = expectedScore
             };
 

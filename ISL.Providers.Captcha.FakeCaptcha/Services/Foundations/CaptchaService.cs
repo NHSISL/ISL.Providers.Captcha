@@ -18,14 +18,14 @@ namespace ISL.Providers.Captcha.FakeCaptcha.Services.Foundations
                 {
                     return new CaptchaResult
                     {
-                        IsCaptchaValid = true,
+                        Success = true,
                         Score = 1.0
                     };
                 }
 
                 return new CaptchaResult
                 {
-                    IsCaptchaValid = false,
+                    Success = false,
                     Score = 0.0
                 };
             });

@@ -6,7 +6,7 @@ namespace ISL.Providers.Captcha.Abstractions.Models
 {
     public class CaptchaResult
     {
-        public bool IsCaptchaValid { get; set; }
+        public bool Success { get; set; }
         public double Score { get; set; }
     }
 }

@@ -50,7 +50,7 @@ namespace ISL.Providers.Captcha.Abstractions.Tests.Acceptance
         private static CaptchaResult CreateRandomCaptchaResult() =>
             new CaptchaResult
             {
-                IsCaptchaValid = GetRandomBool(),
+                Success = GetRandomBool(),
                 Score = GetRandomDouble()
             };
     }

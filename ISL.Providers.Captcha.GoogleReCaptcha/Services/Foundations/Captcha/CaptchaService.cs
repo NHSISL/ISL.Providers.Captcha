@@ -47,7 +47,7 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Services.Foundations.Captcha
 
                 var captchaResult = new CaptchaResult
                 {
-                    IsCaptchaValid = result.Success,
+                    Success = result.Success,
                     Score = result.Score
                 };
 

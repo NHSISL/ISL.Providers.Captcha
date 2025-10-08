@@ -15,12 +15,12 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Tests.Integration
         {
             // given
             string inputCaptchaToken = "valid-captcha";
-            bool expectedIsValid = true;
+            bool expectedSuccess = true;
             double expectedScore = 0.0;
 
             CaptchaResult expectedCaptchaResult = new CaptchaResult
             {
-                IsCaptchaValid = expectedIsValid,
+                Success = expectedSuccess,
                 Score = expectedScore
             };
 
