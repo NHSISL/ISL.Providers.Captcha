@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using ISL.Providers.Captcha.Abstractions.Models;
 using ISL.Providers.Captcha.GoogleReCaptcha.Brokers.GoogleReCaptchaBroker;
 using ISL.Providers.Captcha.GoogleReCaptcha.Models.Brokers.GoogleReCaptcha;
 using ISL.Providers.Captcha.GoogleReCaptcha.Services.Foundations.Captcha;
@@ -78,12 +79,16 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Tests.Unit.Services.Foundations.
             return httpResponse;
         }
 
-        private static async ValueTask<bool> GetSuccessFromHttpResponse(HttpResponseMessage httpResponse)
+        private static async ValueTask<CaptchaResult> GetCaptchaResultFromHttpResponse(HttpResponseMessage httpResponse)
         {
             var json = await httpResponse.Content.ReadAsStringAsync();
             var result = JsonConvert.DeserializeObject<GoogleReCaptchaResponse>(json);
 
-            return result.Success;
+            return new CaptchaResult
+            {
+                Success = result.Success,
+                Score = result.Score
+            };
         }
     }
 }

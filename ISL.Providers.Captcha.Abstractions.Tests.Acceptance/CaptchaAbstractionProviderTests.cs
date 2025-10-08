@@ -2,6 +2,7 @@
 // Copyright (c) North East London ICB. All rights reserved.
 // ---------------------------------------------------------
 
+using ISL.Providers.Captcha.Abstractions.Models;
 using Moq;
 using Tynamix.ObjectFiller;
 
@@ -42,5 +43,15 @@ namespace ISL.Providers.Captcha.Abstractions.Tests.Acceptance
             return false;
 
         }
+
+        private static double GetRandomDouble() =>
+            new DoubleRange(1.0).GetValue();
+
+        private static CaptchaResult CreateRandomCaptchaResult() =>
+            new CaptchaResult
+            {
+                Success = GetRandomBool(),
+                Score = GetRandomDouble()
+            };
     }
 }

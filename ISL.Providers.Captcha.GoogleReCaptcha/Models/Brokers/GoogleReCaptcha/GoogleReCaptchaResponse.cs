@@ -2,9 +2,9 @@
 // Copyright (c) North East London ICB. All rights reserved.
 // ---------------------------------------------------------
 
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace ISL.Providers.Captcha.GoogleReCaptcha.Models.Brokers.GoogleReCaptcha
 {
@@ -12,6 +12,9 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Models.Brokers.GoogleReCaptcha
     {
         [JsonProperty("success")]
         public bool Success { get; set; }
+
+        [JsonProperty("score")]
+        public double Score { get; set; }
 
         [JsonProperty("challenge_ts")]
         public DateTimeOffset ChallengeTime { get; set; }

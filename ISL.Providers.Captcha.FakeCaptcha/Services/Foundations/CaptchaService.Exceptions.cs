@@ -2,22 +2,23 @@
 // Copyright (c) North East London ICB. All rights reserved.
 // ---------------------------------------------------------
 
-using ISL.Providers.Captcha.FakeCaptcha.Models.Foundations.Captcha.Exceptions;
 using System;
 using System.Threading.Tasks;
+using ISL.Providers.Captcha.Abstractions.Models;
+using ISL.Providers.Captcha.FakeCaptcha.Models.Foundations.Captcha.Exceptions;
 using Xeptions;
 
 namespace ISL.Providers.Captcha.FakeCaptcha.Services.Foundations
 {
     internal partial class CaptchaService
     {
-        private delegate ValueTask<bool> ReturningBoolFunction();
+        private delegate ValueTask<CaptchaResult> ReturningCaptchaResultFunction();
 
-        private async ValueTask<bool> TryCatch(ReturningBoolFunction returningBoolFunction)
+        private async ValueTask<CaptchaResult> TryCatch(ReturningCaptchaResultFunction returningCaptchaResultFunction)
         {
             try
             {
-                return await returningBoolFunction();
+                return await returningCaptchaResultFunction();
             }
             catch (InvalidArgumentCaptchaException invalidArgumentCaptchaException)
             {

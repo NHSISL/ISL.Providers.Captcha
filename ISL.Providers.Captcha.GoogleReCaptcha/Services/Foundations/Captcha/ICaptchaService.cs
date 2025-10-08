@@ -3,11 +3,12 @@
 // ---------------------------------------------------------
 
 using System.Threading.Tasks;
+using ISL.Providers.Captcha.Abstractions.Models;
 
 namespace ISL.Providers.Captcha.GoogleReCaptcha.Services.Foundations.Captcha
 {
     internal interface ICaptchaService
     {
-        ValueTask<bool> ValidateCaptchaAsync(string captchaToken, string userIp = "");
+        ValueTask<CaptchaResult> ValidateCaptchaAsync(string captchaToken, string userIp = "");
     }
 }

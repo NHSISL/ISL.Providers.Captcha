@@ -5,6 +5,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentAssertions;
+using ISL.Providers.Captcha.Abstractions.Models;
 using ISL.Providers.Captcha.GoogleReCaptcha.Models.Services.Foundations.Captcha.Exceptions;
 
 namespace ISL.Providers.Captcha.GoogleReCaptcha.Tests.Unit.Services.Foundations.Captcha
@@ -40,7 +41,7 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Tests.Unit.Services.Foundations.
                     .Throws(invalidArgumentCaptchaException);
 
             // when
-            ValueTask<bool> validateCaptchaAction =
+            ValueTask<CaptchaResult> validateCaptchaAction =
                 captchaService.ValidateCaptchaAsync(invalidCaptchaToken, invalidCaptchaToken);
 
             CaptchaValidationException actualException =
@@ -80,7 +81,7 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Tests.Unit.Services.Foundations.
                     .Throws(invalidCaptchaFormDataException);
 
             // when
-            ValueTask<bool> validateCaptchaAction =
+            ValueTask<CaptchaResult> validateCaptchaAction =
                 captchaService.ValidateCaptchaAsync(someString, "");
 
             CaptchaValidationException actualException =

@@ -2,19 +2,20 @@
 // Copyright (c) North East London ICB. All rights reserved.
 // ---------------------------------------------------------
 
+using System;
+using System.Threading.Tasks;
+using ISL.Providers.Captcha.Abstractions.Models;
 using ISL.Providers.Captcha.FakeCaptcha.Models.Foundations.Captcha.Exceptions;
 using ISL.Providers.Captcha.FakeCaptcha.Models.Providers.Exceptions;
 using ISL.Providers.Captcha.FakeCaptcha.Services.Foundations;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Threading.Tasks;
 using Xeptions;
 
 namespace ISL.Providers.Captcha.FakeCaptcha.Providers.FakeCaptcha
 {
     public class FakeCaptchaProvider : IFakeCaptchaProvider
     {
-        private ICaptchaService captchaService {  get; set; }
+        private ICaptchaService captchaService { get; set; }
 
         public FakeCaptchaProvider()
         {
@@ -26,13 +27,14 @@ namespace ISL.Providers.Captcha.FakeCaptcha.Providers.FakeCaptcha
         /// Uses Captcha service to validate a user request given a captcha token and user IP
         /// </summary>
         /// <returns>
-        /// A bool to signify whether the validation was successful
+        /// A captcha result object containing a bool indicating whether the validation was successful and a score of
+        /// how likely the user is a human
         /// </returns>
         /// <exception cref="FakeCaptchaValidationProviderException" />
         /// <exception cref="FakeCaptchaDependencyValidationProviderException" />
         /// <exception cref="FakeCaptchaDependencyProviderException" />
         /// <exception cref="FakeCaptchaServiceProviderException" />
-        public async ValueTask<bool> ValidateCaptchaAsync(string captchaToken, string userIp = "")
+        public async ValueTask<CaptchaResult> ValidateCaptchaAsync(string captchaToken, string userIp = "")
         {
             try
             {

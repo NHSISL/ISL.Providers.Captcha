@@ -3,11 +3,12 @@
 // ---------------------------------------------------------
 
 using System.Threading.Tasks;
+using ISL.Providers.Captcha.Abstractions.Models;
 
 namespace ISL.Providers.Captcha.FakeCaptcha.Services.Foundations
 {
     internal interface ICaptchaService
     {
-        ValueTask<bool> ValidateCaptchaAsync(string captchaToken, string userIp = "");
+        ValueTask<CaptchaResult> ValidateCaptchaAsync(string captchaToken, string userIp = "");
     }
 }
