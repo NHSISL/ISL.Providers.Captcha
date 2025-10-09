@@ -68,7 +68,7 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Providers
             Xeption innerException)
         {
             return new GoogleReCaptchaProviderValidationException(
-                message: "Google ReCaptcha provider validation error occurred, fix errors and try again.",
+                message: innerException.Message,
                 innerException,
                 data: innerException.Data);
         }
@@ -77,7 +77,7 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Providers
             Xeption innerException)
         {
             return new GoogleReCaptchaProviderDependencyValidationException(
-                message: "Google ReCaptcha provider dependency validation error occurred, fix errors and try again.",
+                message: innerException.Message,
                 innerException,
                 data: innerException.Data);
         }
@@ -86,14 +86,14 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Providers
             Xeption innerException)
         {
             return new GoogleReCaptchaProviderDependencyException(
-                message: "Google ReCaptcha provider dependency error occurred, contact support.",
+                message: innerException.Message,
                 innerException);
         }
 
         private static GoogleReCaptchaProviderServiceException CreateProviderServiceException(Xeption innerException)
         {
             return new GoogleReCaptchaProviderServiceException(
-                message: "Google ReCaptcha provider service error occurred, contact support.",
+                message: innerException.Message,
                 innerException);
         }
 
