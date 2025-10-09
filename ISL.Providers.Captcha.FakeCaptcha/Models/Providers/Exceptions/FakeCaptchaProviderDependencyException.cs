@@ -14,8 +14,8 @@ namespace ISL.Providers.Captcha.FakeCaptcha.Models.Providers.Exceptions
     /// </summary>
     public class FakeCaptchaProviderDependencyException : Xeption, ICaptchaProviderDependencyException
     {
-        public FakeCaptchaProviderDependencyException(string message, Xeption innerException, IDictionary datas)
-            : base(message: message, innerException, datas)
+        public FakeCaptchaProviderDependencyException(string message, Xeption innerException, IDictionary data)
+            : base(message: message, innerException, data)
         { }
     }
 }
