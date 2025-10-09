@@ -87,14 +87,16 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Providers
         {
             return new GoogleReCaptchaProviderDependencyException(
                 message: innerException.Message,
-                innerException);
+                innerException,
+                data: innerException.Data);
         }
 
         private static GoogleReCaptchaProviderServiceException CreateProviderServiceException(Xeption innerException)
         {
             return new GoogleReCaptchaProviderServiceException(
                 message: innerException.Message,
-                innerException);
+                innerException,
+                data: innerException.Data);
         }
 
         private void InitializeClients(IServiceProvider serviceProvider) =>

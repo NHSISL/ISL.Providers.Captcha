@@ -2,6 +2,7 @@
 // Copyright (c) North East London ICB. All rights reserved.
 // ---------------------------------------------------------
 
+using System.Collections;
 using ISL.Providers.Captcha.Abstractions.Models.Exceptions;
 using Xeptions;
 
@@ -13,8 +14,8 @@ namespace ISL.Providers.Captcha.GoogleReCaptcha.Models.Providers.Exceptions
     /// </summary>
     public class GoogleReCaptchaProviderDependencyException : Xeption, ICaptchaProviderDependencyException
     {
-        public GoogleReCaptchaProviderDependencyException(string message, Xeption innerException)
-            : base(message, innerException)
+        public GoogleReCaptchaProviderDependencyException(string message, Xeption innerException, IDictionary data)
+            : base(message, innerException, data)
         { }
     }
 }

@@ -85,14 +85,16 @@ namespace ISL.Providers.Captcha.FakeCaptcha.Providers.FakeCaptcha
         {
             return new FakeCaptchaProviderDependencyException(
                 message: innerException.Message,
-                innerException);
+                innerException,
+                data: innerException.Data);
         }
 
         private static FakeCaptchaProviderServiceException CreateProviderServiceException(Xeption innerException)
         {
             return new FakeCaptchaProviderServiceException(
                 message: innerException.Message,
-                innerException);
+                innerException,
+                data: innerException.Data);
         }
 
         private void InitializeClients(IServiceProvider serviceProvider) =>

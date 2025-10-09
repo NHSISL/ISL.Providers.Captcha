@@ -77,7 +77,7 @@ namespace ISL.Providers.Captcha.Abstractions
         private CaptchaProviderServiceException CreateUncatagorizedServiceException(Exception exception)
         {
             var CaptchaProviderServiceException = new CaptchaProviderServiceException(
-                message: "Captcha provider not properly implemented. Uncatagorized errors found, " +
+                message: "Captcha provider not properly implemented. Uncategorized errors found, " +
                     "contact the captcha provider owner for support.",
 
                 innerException: exception as Xeption,
