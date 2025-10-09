@@ -28,7 +28,7 @@ namespace ISL.Providers.Captcha.Abstractions.Tests.Unit
 
             CaptchaProviderValidationException expectedCaptchaValidationProviderException =
                 new CaptchaProviderValidationException(
-                    message: "Captcha validation errors occurred, please try again.",
+                    message: someCaptchaValidationException.Message,
                     innerException: someCaptchaValidationException);
 
             this.captchaMock.Setup(provider =>
@@ -67,7 +67,7 @@ namespace ISL.Providers.Captcha.Abstractions.Tests.Unit
 
             CaptchaProviderValidationException expectedCaptchaValidationProviderException =
                 new CaptchaProviderValidationException(
-                    message: "Captcha validation errors occurred, please try again.",
+                    message: someCaptchaValidationException.Message,
                     innerException: someCaptchaValidationException);
 
             this.captchaMock.Setup(provider =>
@@ -105,7 +105,7 @@ namespace ISL.Providers.Captcha.Abstractions.Tests.Unit
 
             CaptchaProviderDependencyException expectedCaptchaDependencyProviderException =
                 new CaptchaProviderDependencyException(
-                    message: "Captcha dependency error occurred, contact support.",
+                    message: someCaptchaValidationException.Message,
                     innerException: someCaptchaValidationException);
 
             this.captchaMock.Setup(provider =>
@@ -143,7 +143,7 @@ namespace ISL.Providers.Captcha.Abstractions.Tests.Unit
 
             CaptchaProviderServiceException expectedCaptchaServiceProviderException =
                 new CaptchaProviderServiceException(
-                    message: "Captcha service error occurred, contact support.",
+                    message: someCaptchaValidationException.Message,
                     innerException: someCaptchaValidationException);
 
             this.captchaMock.Setup(provider =>
@@ -174,17 +174,12 @@ namespace ISL.Providers.Captcha.Abstractions.Tests.Unit
             // given
             var someException = new Xeption();
 
-            var uncatagorizedCaptchaProviderException =
-                new UncatagorizedCaptchaProviderException(
-                    message: "Captcha provider not properly implemented. Uncatagorized errors found, " +
-                            "contact the captcha provider owner for support.",
-                    innerException: someException,
-                    data: someException.Data);
-
             CaptchaProviderServiceException expectedCaptchaServiceProviderException =
                 new CaptchaProviderServiceException(
-                    message: "Uncatagorized captcha service error occurred, contact support.",
-                    innerException: uncatagorizedCaptchaProviderException);
+                    message: "Captcha provider not properly implemented. Uncatagorized errors found, " +
+                        "contact the captcha provider owner for support.",
+
+                    innerException: someException);
 
             this.captchaMock.Setup(provider =>
                 provider.ValidateCaptchaAsync(It.IsAny<string>(), It.IsAny<string>()))

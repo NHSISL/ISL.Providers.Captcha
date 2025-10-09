@@ -21,32 +21,25 @@ namespace ISL.Providers.Captcha.Abstractions
             {
                 return await returningCaptchaResultFunction();
             }
-            catch (Xeption ex) when (ex is ICaptchaProviderValidationException)
+            catch (Xeption exception) when (exception is ICaptchaProviderValidationException)
             {
-                throw CreateValidationException(ex);
+                throw CreateValidationException(exception);
             }
-            catch (Xeption ex) when (ex is ICaptchaProviderDependencyValidationException)
+            catch (Xeption exception) when (exception is ICaptchaProviderDependencyValidationException)
             {
-                throw CreateValidationException(ex);
+                throw CreateValidationException(exception);
             }
-            catch (Xeption ex) when (ex is ICaptchaProviderDependencyException)
+            catch (Xeption exception) when (exception is ICaptchaProviderDependencyException)
             {
-                throw CreateDependencyException(ex);
+                throw CreateDependencyException(exception);
             }
-            catch (Xeption ex) when (ex is ICaptchaProviderServiceException)
+            catch (Xeption exception) when (exception is ICaptchaProviderServiceException)
             {
-                throw CreateServiceException(ex);
+                throw CreateServiceException(exception);
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                var uncatagorizedCaptchaProviderException =
-                    new UncatagorizedCaptchaProviderException(
-                        message: "Captcha provider not properly implemented. Uncatagorized errors found, " +
-                            "contact the captcha provider owner for support.",
-                        innerException: ex,
-                        data: ex.Data);
-
-                throw CreateUncatagorizedServiceException(uncatagorizedCaptchaProviderException);
+                throw CreateUncatagorizedServiceException(exception);
             }
         }
 
@@ -54,7 +47,7 @@ namespace ISL.Providers.Captcha.Abstractions
         {
             var CaptchaProviderValidationException =
                 new CaptchaProviderValidationException(
-                    message: "Captcha validation errors occurred, please try again.",
+                    message: exception.Message,
                     innerException: exception,
                     data: exception.Data);
 
@@ -64,7 +57,7 @@ namespace ISL.Providers.Captcha.Abstractions
         private CaptchaProviderDependencyException CreateDependencyException(Xeption exception)
         {
             var CaptchaProviderDependencyException = new CaptchaProviderDependencyException(
-                message: "Captcha dependency error occurred, contact support.",
+                message: exception.Message,
                 innerException: exception,
                 data: exception.Data);
 
@@ -74,7 +67,7 @@ namespace ISL.Providers.Captcha.Abstractions
         private CaptchaProviderServiceException CreateServiceException(Xeption exception)
         {
             var CaptchaProviderServiceException = new CaptchaProviderServiceException(
-                message: "Captcha service error occurred, contact support.",
+                message: exception.Message,
                 innerException: exception,
                 data: exception.Data);
 
@@ -84,7 +77,9 @@ namespace ISL.Providers.Captcha.Abstractions
         private CaptchaProviderServiceException CreateUncatagorizedServiceException(Exception exception)
         {
             var CaptchaProviderServiceException = new CaptchaProviderServiceException(
-                message: "Uncatagorized captcha service error occurred, contact support.",
+                message: "Captcha provider not properly implemented. Uncatagorized errors found, " +
+                    "contact the captcha provider owner for support.",
+
                 innerException: exception as Xeption,
                 data: exception.Data);
 
