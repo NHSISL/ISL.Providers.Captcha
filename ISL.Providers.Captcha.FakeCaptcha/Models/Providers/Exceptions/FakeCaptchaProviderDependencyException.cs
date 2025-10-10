@@ -2,6 +2,7 @@
 // Copyright (c) North East London ICB. All rights reserved.
 // ---------------------------------------------------------
 
+using System.Collections;
 using ISL.Providers.Captcha.Abstractions.Models.Exceptions;
 using Xeptions;
 
@@ -13,8 +14,8 @@ namespace ISL.Providers.Captcha.FakeCaptcha.Models.Providers.Exceptions
     /// </summary>
     public class FakeCaptchaProviderDependencyException : Xeption, ICaptchaProviderDependencyException
     {
-        public FakeCaptchaProviderDependencyException(string message, Xeption innerException)
-            : base(message: message, innerException)
+        public FakeCaptchaProviderDependencyException(string message, Xeption innerException, IDictionary data)
+            : base(message: message, innerException, data)
         { }
     }
 }

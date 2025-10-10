@@ -20,6 +20,10 @@ namespace ISL.Providers.Captcha.Abstractions.Tests.Unit
             // given
             var someException = new Xeption();
 
+            someException.AddData(
+                key: "someKey",
+                values: "someValues");
+
             var someCaptchaValidationException =
                 new SomeCaptchaValidationException(
                     message: "Some captcha validation exception occurred",
@@ -28,8 +32,9 @@ namespace ISL.Providers.Captcha.Abstractions.Tests.Unit
 
             CaptchaProviderValidationException expectedCaptchaValidationProviderException =
                 new CaptchaProviderValidationException(
-                    message: "Captcha validation errors occurred, please try again.",
-                    innerException: someCaptchaValidationException);
+                    message: someCaptchaValidationException.Message,
+                    innerException: someCaptchaValidationException,
+                    data: someCaptchaValidationException.Data);
 
             this.captchaMock.Setup(provider =>
                 provider.ValidateCaptchaAsync(It.IsAny<string>(), It.IsAny<string>()))
@@ -59,6 +64,10 @@ namespace ISL.Providers.Captcha.Abstractions.Tests.Unit
             // given
             var someException = new Xeption();
 
+            someException.AddData(
+                key: "someKey",
+                values: "someValues");
+
             var someCaptchaValidationException =
                 new SomeCaptchaDependencyValidationException(
                     message: "Some captcha dependency validation exception occurred",
@@ -67,8 +76,9 @@ namespace ISL.Providers.Captcha.Abstractions.Tests.Unit
 
             CaptchaProviderValidationException expectedCaptchaValidationProviderException =
                 new CaptchaProviderValidationException(
-                    message: "Captcha validation errors occurred, please try again.",
-                    innerException: someCaptchaValidationException);
+                    message: someCaptchaValidationException.Message,
+                    innerException: someCaptchaValidationException,
+                    data: someCaptchaValidationException.Data);
 
             this.captchaMock.Setup(provider =>
                 provider.ValidateCaptchaAsync(It.IsAny<string>(), It.IsAny<string>()))
@@ -98,15 +108,21 @@ namespace ISL.Providers.Captcha.Abstractions.Tests.Unit
             // given
             var someException = new Xeption();
 
+            someException.AddData(
+                key: "someKey",
+                values: "someValues");
+
             var someCaptchaValidationException =
                 new SomeCaptchaDependencyException(
                     message: "Some captcha dependency exception occurred",
-                    innerException: someException);
+                    innerException: someException,
+                    data: someException.Data);
 
             CaptchaProviderDependencyException expectedCaptchaDependencyProviderException =
                 new CaptchaProviderDependencyException(
-                    message: "Captcha dependency error occurred, contact support.",
-                    innerException: someCaptchaValidationException);
+                    message: someCaptchaValidationException.Message,
+                    innerException: someCaptchaValidationException,
+                    data: someCaptchaValidationException.Data);
 
             this.captchaMock.Setup(provider =>
                 provider.ValidateCaptchaAsync(It.IsAny<string>(), It.IsAny<string>()))
@@ -136,15 +152,21 @@ namespace ISL.Providers.Captcha.Abstractions.Tests.Unit
             // given
             var someException = new Xeption();
 
+            someException.AddData(
+                key: "someKey",
+                values: "someValues");
+
             var someCaptchaValidationException =
                 new SomeCaptchaServiceException(
                     message: "Some captcha service exception occurred",
-                    innerException: someException);
+                    innerException: someException,
+                    data: someException.Data);
 
             CaptchaProviderServiceException expectedCaptchaServiceProviderException =
                 new CaptchaProviderServiceException(
-                    message: "Captcha service error occurred, contact support.",
-                    innerException: someCaptchaValidationException);
+                    message: someCaptchaValidationException.Message,
+                    innerException: someCaptchaValidationException,
+                    data: someCaptchaValidationException.Data);
 
             this.captchaMock.Setup(provider =>
                 provider.ValidateCaptchaAsync(It.IsAny<string>(), It.IsAny<string>()))
@@ -174,17 +196,17 @@ namespace ISL.Providers.Captcha.Abstractions.Tests.Unit
             // given
             var someException = new Xeption();
 
-            var uncatagorizedCaptchaProviderException =
-                new UncatagorizedCaptchaProviderException(
-                    message: "Captcha provider not properly implemented. Uncatagorized errors found, " +
-                            "contact the captcha provider owner for support.",
-                    innerException: someException,
-                    data: someException.Data);
+            someException.AddData(
+                key: "someKey",
+                values: "someValues");
 
             CaptchaProviderServiceException expectedCaptchaServiceProviderException =
                 new CaptchaProviderServiceException(
-                    message: "Uncatagorized captcha service error occurred, contact support.",
-                    innerException: uncatagorizedCaptchaProviderException);
+                    message: "Captcha provider not properly implemented. Uncategorized errors found, " +
+                        "contact the captcha provider owner for support.",
+
+                    innerException: someException,
+                    data: someException.Data);
 
             this.captchaMock.Setup(provider =>
                 provider.ValidateCaptchaAsync(It.IsAny<string>(), It.IsAny<string>()))

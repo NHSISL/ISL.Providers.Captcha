@@ -66,7 +66,7 @@ namespace ISL.Providers.Captcha.FakeCaptcha.Providers.FakeCaptcha
             Xeption innerException)
         {
             return new FakeCaptchaProviderValidationException(
-                message: "Fake Captcha provider validation error occurred, fix errors and try again.",
+                message: innerException.Message,
                 innerException,
                 data: innerException.Data);
         }
@@ -75,7 +75,7 @@ namespace ISL.Providers.Captcha.FakeCaptcha.Providers.FakeCaptcha
             Xeption innerException)
         {
             return new FakeCaptchaProviderDependencyValidationException(
-                message: "Fake Captcha provider dependency validation error occurred, fix errors and try again.",
+                message: innerException.Message,
                 innerException,
                 data: innerException.Data);
         }
@@ -84,15 +84,17 @@ namespace ISL.Providers.Captcha.FakeCaptcha.Providers.FakeCaptcha
             Xeption innerException)
         {
             return new FakeCaptchaProviderDependencyException(
-                message: "Fake Captcha provider dependency error occurred, contact support.",
-                innerException);
+                message: innerException.Message,
+                innerException,
+                data: innerException.Data);
         }
 
         private static FakeCaptchaProviderServiceException CreateProviderServiceException(Xeption innerException)
         {
             return new FakeCaptchaProviderServiceException(
-                message: "Fake Captcha provider service error occurred, contact support.",
-                innerException);
+                message: innerException.Message,
+                innerException,
+                data: innerException.Data);
         }
 
         private void InitializeClients(IServiceProvider serviceProvider) =>
