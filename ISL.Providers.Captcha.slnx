@@ -1,0 +1,21 @@
+<Solution>
+  <Folder Name="/Abstraction Provider/">
+    <Project Path="ISL.Providers.Captcha.Abstractions.Tests.Acceptance/ISL.Providers.Captcha.Abstractions.Tests.Acceptance.csproj" />
+    <Project Path="ISL.Providers.Captcha.Abstractions.Tests.Unit/ISL.Providers.Captcha.Abstractions.Tests.Unit.csproj" />
+    <Project Path="ISL.Providers.Captcha.Abstractions/ISL.Providers.Captcha.Abstractions.csproj" />
+  </Folder>
+  <Folder Name="/Providers/" />
+  <Folder Name="/Providers/FAKE/">
+    <Project Path="ISL.Providers.Captcha.FakeCaptcha.Tests.Acceptance/ISL.Providers.Captcha.FakeCaptcha.Tests.Acceptance.csproj" />
+    <Project Path="ISL.Providers.Captcha.FakeCaptcha.Tests.Integration/ISL.Providers.Captcha.FakeCaptcha.Tests.Integration.csproj" />
+    <Project Path="ISL.Providers.Captcha.FakeCaptcha.Tests.Unit/ISL.Providers.Captcha.FakeCaptcha.Tests.Unit.csproj" />
+    <Project Path="ISL.Providers.Captcha.FakeCaptcha/ISL.Providers.Captcha.FakeCaptcha.csproj" />
+  </Folder>
+  <Folder Name="/Providers/Google ReCaptcha/">
+    <Project Path="ISL.Providers.Captcha.GoogleReCaptcha.Tests.Acceptance/ISL.Providers.Captcha.GoogleReCaptcha.Tests.Acceptance.csproj" />
+    <Project Path="ISL.Providers.Captcha.GoogleReCaptcha.Tests.Integration/ISL.Providers.Captcha.GoogleReCaptcha.Tests.Integration.csproj" />
+    <Project Path="ISL.Providers.Captcha.GoogleReCaptcha.Tests.Unit/ISL.Providers.Captcha.GoogleReCaptcha.Tests.Unit.csproj" />
+    <Project Path="ISL.Providers.Captcha.GoogleReCaptcha/ISL.Providers.Captcha.GoogleReCaptcha.csproj" />
+  </Folder>
+  <Project Path="ISL.Providers.Captcha.Infrastructure/ISL.Providers.Captcha.Infrastructure.csproj" />
+</Solution>
